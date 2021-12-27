@@ -22,16 +22,14 @@ def check_rows_for_bingo(numbers_called: list, boards: list) -> tuple:
     for board in boards:
         for row in board:
             if set(row).issubset(numbers_called):
-                calculate_score(numbers_called, board)
                 return True, numbers_called, board
 
 
 def check_columns_for_bingo(numbers_called: list, boards: list) -> tuple:
     for board in boards:
-        transposed_board = [[row[i] for row in board] for i in range(len(boards[0]))]
+        transposed_board = [[row[i] for row in board] for i in range(len(board[0]))]
         for row in transposed_board:
             if set(row).issubset(numbers_called):
-                calculate_score(numbers_called, board)
                 return True, numbers_called, board
 
 
