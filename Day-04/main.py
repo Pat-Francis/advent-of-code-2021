@@ -6,7 +6,7 @@ def part_one() -> int:
             return calculate_score(has_bingo[1], has_bingo[2])
 
 
-def process_input(file: str):
+def process_input(file: str) -> tuple:
     with open(file) as f:
         data = [line for line in f.read().split("\n") if line != ""]
         numbers_to_call = [int(i) for i in data[0].split(",")]
