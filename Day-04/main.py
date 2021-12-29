@@ -1,35 +1,33 @@
-def part_one(file: str) -> int:
+def part_one() -> int:
+    numbers_to_call, boards = process_input(input_file)
+    for i in range(5, len(numbers_to_call)):
+        has_bingo = check_bingo(numbers_to_call[0:i], boards)
+        if has_bingo:
+            return calculate_score(has_bingo[1], has_bingo[2])
+
+
+def process_input(file: str):
     with open(file) as f:
-        data = f.read().splitlines()
+        data = [line for line in f.read().split("\n") if line != ""]
         numbers_to_call = [int(i) for i in data[0].split(",")]
+        board_data = [list(map(int, d.split())) for d in data[1:]]
+
         boards = []
+        for i in range(0, len(board_data), 5):
+            boards.append(board_data[i:i + 5])
 
-        for i in range(2, len(data), 6):
-            boards.append([list(map(int, d.split())) for d in data[i:i + 5]])
-
-        for i in range(5, len(numbers_to_call)):
-            check_rows = check_rows_for_bingo(numbers_to_call[0:i], boards)
-            check_columns = check_columns_for_bingo(numbers_to_call[0:i], boards)
-            if check_rows:
-                score = calculate_score(check_rows[1], check_rows[2])
-                return score
-            elif check_columns:
-                score = calculate_score(check_columns[1], check_columns[2])
-                return score
+        return numbers_to_call, boards
 
 
-def check_rows_for_bingo(numbers_called: list, boards: list) -> tuple:
+def check_bingo(numbers_called: list, boards: list) -> tuple:
     for board in boards:
         for row in board:
             if set(row).issubset(numbers_called):
                 return True, numbers_called, board
 
-
-def check_columns_for_bingo(numbers_called: list, boards: list) -> tuple:
-    for board in boards:
-        transposed_board = [[row[i] for row in board] for i in range(len(board[0]))]
-        for row in transposed_board:
-            if set(row).issubset(numbers_called):
+        for i in range(len(board[0])):
+            column = [row[i] for row in board]
+            if set(column).issubset(numbers_called):
                 return True, numbers_called, board
 
 
@@ -39,4 +37,4 @@ def calculate_score(numbers_called: list, winning_board: list) -> int:
 
 
 input_file = "./input.txt"
-print(f"Part One: {part_one(input_file)}")
+print(f"Part One: {part_one()}")
