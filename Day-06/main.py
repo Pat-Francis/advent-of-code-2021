@@ -23,11 +23,11 @@ def update_lantern_fish(lantern_fish: list, days: int) -> int:
 
 
 def part_one(filename: str) -> int:
-    return update_lantern_fish(process_input(input_file), 80)
+    return update_lantern_fish(process_input(filename), 80)
 
 
 def part_two(filename: str) -> int:
-    return update_lantern_fish(process_input(input_file), 256)
+    return update_lantern_fish(process_input(filename), 256)
 
 
 input_file = "./input.txt"

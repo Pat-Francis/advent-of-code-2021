@@ -1,5 +1,5 @@
-def part_one(file: str) -> int:
-    with open(file) as f:
+def part_one(filename: str) -> int:
+    with open(filename) as f:
         instructions = [[j, int(k)] for j, k in [i.split() for i in f.read().splitlines()]]
 
         forward = sum([i[1] for i in instructions if i[0] == "forward"])
@@ -10,8 +10,8 @@ def part_one(file: str) -> int:
         return product
 
 
-def part_two(file: str) -> int:
-    with open(file) as f:
+def part_two(filename: str) -> int:
+    with open(filename) as f:
         instructions = [[j, int(k)] for j, k in [i.split() for i in f.read().splitlines()]]
 
         horizontal = 0

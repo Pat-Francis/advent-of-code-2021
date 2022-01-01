@@ -1,11 +1,11 @@
-def part_one(file: str) -> int:
-    with open(file) as f:
+def part_one(filename: str) -> int:
+    with open(filename) as f:
         depths = [int(i) for i in f.readlines()]
     return sliding_window(depths, 1)
 
 
-def part_two(file: str) -> int:
-    with open(file) as f:
+def part_two(filename: str) -> int:
+    with open(filename) as f:
         depths = [int(i) for i in f.readlines()]
     return sliding_window(depths, 3)
 

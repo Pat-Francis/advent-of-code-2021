@@ -1,5 +1,5 @@
-def part_one(file: str) -> int:
-    with open(file) as f:
+def part_one(filename: str) -> int:
+    with open(filename) as f:
         data = f.read().splitlines()
         gamma = ''
 
@@ -13,8 +13,8 @@ def part_one(file: str) -> int:
         return product
 
 
-def part_two(file: str) -> int:
-    with open(file) as f:
+def part_two(filename: str) -> int:
+    with open(filename) as f:
         data = f.read().splitlines()
         oxygen_rating = data
         co2_rating = data

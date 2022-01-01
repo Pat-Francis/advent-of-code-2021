@@ -27,16 +27,16 @@ def calculate_score(numbers_called: list, winning_board: list) -> int:
     return score
 
 
-def part_one() -> int:
-    numbers_to_call, boards = process_input(input_file)
+def part_one(filename: str) -> int:
+    numbers_to_call, boards = process_input(filename)
     for i in range(len(numbers_to_call)):
         for board in boards:
             if check_bingo(numbers_to_call[0:i], board):
                 return calculate_score(numbers_to_call[0:i], board)
 
 
-def part_two() -> int:
-    numbers_to_call, boards = process_input(input_file)
+def part_two(filename: str) -> int:
+    numbers_to_call, boards = process_input(filename)
     for i in range(len(numbers_to_call)):
         non_winning_boards = []
         for board in boards:
@@ -50,5 +50,5 @@ def part_two() -> int:
 
 
 input_file = "./input.txt"
-print(f"Part One: {part_one()}")
-print(f"Part One: {part_two()}")
+print(f"Part One: {part_one(input_file)}")
+print(f"Part One: {part_two(input_file)}")

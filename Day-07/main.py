@@ -8,12 +8,12 @@ def process_input(file: str) -> list[int]:
 
 
 def part_one(filename: str) -> int:
-    data = process_input(input_file)
+    data = process_input(filename)
     return int(sum([abs(x - median(data)) for x in data]))
 
 
 def part_two(filename: str) -> int:
-    data = process_input(input_file)
+    data = process_input(filename)
     return min([sum([fuel_cost(x, r) for x in data]) for r in range(min(data), max(data) + 1)])
 
 
