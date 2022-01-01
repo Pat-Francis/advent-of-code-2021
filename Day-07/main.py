@@ -1,4 +1,4 @@
-def process_input(file: str):
+def process_input(file: str) -> list[int]:
     with open(file) as f:
         data = sorted(list(map(int, f.read().split(","))))
         return data
