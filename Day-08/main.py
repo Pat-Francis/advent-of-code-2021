@@ -65,7 +65,7 @@ def part_one(filename: str) -> int:
     return count
 
 
-def part_two(filename: str):
+def part_two(filename: str) -> int:
     lines = process_input(filename)
     total = 0
     for signals, outputs in lines:
