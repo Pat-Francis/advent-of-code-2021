@@ -6,6 +6,7 @@ def process_input(file: str) -> list[list[int]]:
 def is_low_point(array: list[list[int]], x: int, y: int) -> bool:
     adjacent = []
     adjacency_matrix = [(0, -1), (0, 1), (1, 0), (-1, 0)]
+
     for dx, dy in adjacency_matrix:
         if 0 <= x + dx < len(array) and 0 <= y + dy < len(array[x]):
             adjacent.append(array[x + dx][y + dy])
