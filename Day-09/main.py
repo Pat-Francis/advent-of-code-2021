@@ -14,7 +14,7 @@ def is_low_point(array: list[list[int]], x: int, y: int) -> bool:
     return array[x][y] < min(adjacent)
 
 
-def calculate_basin(visited: set, array: list[list[int]], x, y):
+def calculate_basin(visited: set, array: list[list[int]], x, y) -> int:
     adjacent = []
     adjacency_matrix = [(0, -1), (0, 1), (1, 0), (-1, 0)]
 
@@ -23,7 +23,6 @@ def calculate_basin(visited: set, array: list[list[int]], x, y):
 
     for dx, dy in adjacency_matrix:
         if 0 <= x + dx < len(array) and 0 <= y + dy < len(array[x]) and array[x + dx][y + dy] != 9:
-            # print(x + dx, y + dy)
             adjacent.append((x + dx, y + dy))
 
     for (x, y) in adjacent:
@@ -45,7 +44,7 @@ def part_one(filename: str) -> int:
     return risk_level
 
 
-def part_two(filename: str):
+def part_two(filename: str) -> int:
     data = process_input(filename)
     lowest_points = []
     basin_sizes = []
