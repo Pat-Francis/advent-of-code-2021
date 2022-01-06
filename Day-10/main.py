@@ -6,12 +6,12 @@ points_dict = {
 }
 
 
-def process_input(file: str):
+def process_input(file: str) -> list[str]:
     with open(file) as f:
         return [line for line in f.read().split()]
 
 
-def part_one(filename: str):
+def part_one(filename: str) -> int:
     data = process_input(filename)
     openers = ['(', '[', '{', '<']
     closers = [')', ']', '}', '>']
