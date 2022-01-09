@@ -10,7 +10,7 @@ def part_one(filename: str) -> int:
     data = process_input(filename)
     flashes = 0
 
-    for i in range(100):
+    for _ in range(100):
         to_flash = []
         data = [[num + 1 for num in line] for line in data]
         over_nine = [num for row in data for num in row if num > 9]
@@ -19,7 +19,7 @@ def part_one(filename: str) -> int:
             for x in range(len(data)):
                 for y in range(len(data[x])):
                     if data[x][y] > 9:
-                        to_flash.append([x, y])
+                        to_flash.append((x, y))
                         for dx, dy in adjacency_matrix:
                             if 0 <= x + dx < len(data) and 0 <= y + dy < len(data[x]):
                                 data[x + dx][y + dy] += 1
@@ -33,5 +33,36 @@ def part_one(filename: str) -> int:
     return flashes
 
 
+def part_two(filename: str) -> int:
+    data = process_input(filename)
+    counter = 0
+    all_zeroes = len([num for row in data for num in row if num == 0])
+
+    while all_zeroes < 100:
+        to_flash = []
+        data = [[num + 1 for num in line] for line in data]
+        over_nine = [num for row in data for num in row if num > 9]
+
+        while len(over_nine) > 0:
+            for x in range(len(data)):
+                for y in range(len(data[x])):
+                    if data[x][y] > 9:
+                        to_flash.append((x, y))
+                        for dx, dy in adjacency_matrix:
+                            if 0 <= x + dx < len(data) and 0 <= y + dy < len(data[x]):
+                                data[x + dx][y + dy] += 1
+
+            for x, y in to_flash:
+                data[x][y] = 0
+
+            over_nine = [num for row in data for num in row if num > 9]
+            all_zeroes = len([num for row in data for num in row if num == 0])
+
+        counter += 1
+
+    return counter
+
+
 input_file = "./input.txt"
 print(f"Part One: {part_one(input_file)}")
+print(f"Part Two: {part_two(input_file)}")
