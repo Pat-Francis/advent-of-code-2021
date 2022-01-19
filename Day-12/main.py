@@ -32,14 +32,28 @@ def calculate_paths(graph: dict[str, list[str]], start, end: str, visited: Calla
     return paths
 
 
+def is_upper(path: list[str], node: str) -> bool:
+    return node.isupper()
+
+
+def node_check(path: list[str], node: str) -> bool:
+    lowercase = [x for x in path if x.islower()]
+    if len(lowercase) == len(set(lowercase)):
+        return len(lowercase) == len(set(lowercase)) and node != "start"
+    else:
+        return node.isupper()
+
+
 def part_one(filename: str):
     graph = process_input(filename)
     return len(calculate_paths(graph, "start", "end", is_upper))
 
 
-def is_upper(path: list[str], node: str) -> bool:
-    return node.isupper()
+def part_two(filename: str):
+    graph = process_input(filename)
+    return len(calculate_paths(graph, "start", "end", node_check))
 
 
 input_file = "./input.txt"
 print(f"Part One: {part_one(input_file)}")
+print(f"Part Two: {part_two(input_file)}")
