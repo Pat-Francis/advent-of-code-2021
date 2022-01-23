@@ -3,7 +3,6 @@ def process_input(file: str):
         dots, folds = f.read().split("\n\n")
 
     dots = [list(map(int, item.split(","))) for item in dots.split("\n")]
-    print(dots)
     x_max = max((x for x, y in dots))
     y_max = max((y for x, y in dots))
 
@@ -35,7 +34,18 @@ def fold_paper(dots, x_max, y_max, axis, value):
     return dots, x_max, y_max
 
 
-def part_one(filename: str):
+def print_paper(dots, x_max, y_max):
+    for y in range(y_max + 1):
+        line = ""
+        for x in range(x_max + 1):
+            if (x, y) in dots:
+                line += "#"
+            else:
+                line += "."
+        print(line)
+
+
+def part_one(filename: str) -> int:
     dots, x_max, y_max, folds = process_input(filename)
     for axis, value in folds:
         dots, x_max, y_max = fold_paper(dots, x_max, y_max, axis, value)
@@ -44,5 +54,14 @@ def part_one(filename: str):
     return len(set(dots))
 
 
+def part_two(filename: str):
+    dots, x_max, y_max, folds = process_input(filename)
+    for axis, value in folds:
+        dots, x_max, y_max = fold_paper(dots, x_max, y_max, axis, value)
+
+    print_paper(dots, x_max, y_max)
+
+
 input_file = "./input.txt"
 print(f"Part One: {part_one(input_file)}")
+part_two(input_file)
