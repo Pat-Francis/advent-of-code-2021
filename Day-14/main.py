@@ -33,17 +33,17 @@ def part_one(filename: str) -> int:
         return most_common - least_common
 
 
-def part_two(filename: str):
+def part_two(filename: str) -> int:
     template, data = process_input(filename)
     pairs_count = Counter()
     total_count = Counter()
 
-    # generate starting list of pairs
+    # starting list of pairs from template
     for i in range(len(template) - 1):
         pair = f"{template[i]}{template[i + 1]}"
         pairs_count.update([pair])
 
-    # add starting template to the total_count
+    # add starting template to total_count
     for i in template:
         total_count.update(i)
 
@@ -53,13 +53,10 @@ def part_two(filename: str):
             pair_one = f"{k[0]}{data[k]}"
             pair_two = f"{data[k]}{k[1]}"
 
-            new_pairs.update([pair_one])
-            new_pairs[pair_one] += v - 1
-            new_pairs.update([pair_two])
-            new_pairs[pair_two] += v - 1
+            new_pairs[pair_one] += v
+            new_pairs[pair_two] += v
 
-            total_count.update(data[k])
-            total_count[data[k]] += v - 1
+            total_count[data[k]] += v
 
         pairs_count = new_pairs
 
