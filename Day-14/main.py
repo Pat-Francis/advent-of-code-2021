@@ -1,5 +1,4 @@
-from collections import defaultdict
-from collections import Counter
+from collections import Counter, defaultdict
 
 
 def process_input(file: str):
@@ -15,7 +14,7 @@ def process_input(file: str):
     return template, data
 
 
-def part_one(filename: str):
+def part_one(filename: str) -> int:
     template, data = process_input(filename)
 
     for j in range(10):
@@ -34,5 +33,41 @@ def part_one(filename: str):
         return most_common - least_common
 
 
+def part_two(filename: str):
+    template, data = process_input(filename)
+    pairs_count = Counter()
+    total_count = Counter()
+
+    # generate starting list of pairs
+    for i in range(len(template) - 1):
+        pair = f"{template[i]}{template[i + 1]}"
+        pairs_count.update([pair])
+
+    # add starting template to the total_count
+    for i in template:
+        total_count.update(i)
+
+    for i in range(40):
+        new_pairs = Counter()
+        for k, v in pairs_count.items():
+            pair_one = f"{k[0]}{data[k]}"
+            pair_two = f"{data[k]}{k[1]}"
+
+            new_pairs.update([pair_one])
+            new_pairs[pair_one] += v - 1
+            new_pairs.update([pair_two])
+            new_pairs[pair_two] += v - 1
+
+            total_count.update(data[k])
+            total_count[data[k]] += v - 1
+
+        pairs_count = new_pairs
+
+    most_common = total_count.most_common()[0][1]
+    least_common = total_count.most_common()[-1][1]
+    return most_common - least_common
+
+
 input_file = "./input.txt"
 print(f"Part One: {part_one(input_file)}")
+print(f"Part Two: {part_two(input_file)}")
