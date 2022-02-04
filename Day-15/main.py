@@ -7,25 +7,48 @@ def process_input(file: str):
         adjacent = [(-1, 0), (1, 0), (0, -1), (0, 1)]
         vertices = []
 
-        for i in range(len(data)):
-            for j in range(len(data[0])):
+        for i, _ in enumerate(data):
+            for j, _ in enumerate(data[0]):
                 vertices.append((i, j))
 
-        edges = defaultdict(list)
+        edges = defaultdict(dict)
         for x, y in vertices:
             for dx, dy in adjacent:
-                if 0 <= x + dx <= len(data) and 0 <= y + dy <= len(data[0]) and (x + dx, y + dy) != (0, 0):
-                    edges[(x, y)].append((x + dx, y + dy))
-        print(edges)
+                if 0 <= x + dx < len(data) and 0 <= y + dy < len(data[0]):
+                    edges[x, y].update({(x + dx, y + dy): data[x + dx][y + dy]})
+
+    return vertices, edges
 
 
-def dijkstra():
-    pass
+def dijkstra(vertices, edges, start, end) -> int:
+    unvisited = {vertex: float("inf") for vertex in vertices}
+    unvisited[start] = 0
+    visited = {}
+    parent = {}
+
+    while unvisited:
+        min_node = min(unvisited, key=unvisited.get)
+
+        for neighbour, cost in edges[min_node].items():
+            if neighbour not in visited:
+                new_distance = unvisited[min_node] + cost
+                if new_distance < unvisited[neighbour]:
+                    unvisited[neighbour] = new_distance
+                    parent[neighbour] = min_node
+
+        visited[min_node] = unvisited[min_node]
+        unvisited.pop(min_node)
+
+    return visited[end]
 
 
 def part_one(filename: str):
-    return process_input(filename)
+    vertices, edges = process_input(filename)
+    start = min(vertices)
+    end = max(vertices)
+
+    return dijkstra(vertices, edges, start, end)
 
 
-input_file = "./test_input.txt"
+input_file = "./input.txt"
 print(f"Part One: {part_one(input_file)}")
