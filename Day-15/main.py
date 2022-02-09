@@ -1,4 +1,5 @@
 from collections import defaultdict
+from heapq import heappop, heappush
 
 
 def process_input(file: str):
@@ -27,24 +28,19 @@ def generate_edges(data):
 
 def dijkstra(vertices, edges, start, end) -> int:
     unvisited = {vertex: float("inf") for vertex in vertices}
-    unvisited[start] = 0
-    visited = {}
-    parent = {}
+    queue = [(0, start)]
 
-    while unvisited:
-        min_node = min(unvisited, key=unvisited.get)
+    while queue:
+        path_len, vertex = heappop(queue)
 
-        for neighbour, cost in edges[min_node].items():
-            if neighbour not in visited:
-                new_distance = unvisited[min_node] + cost
-                if new_distance < unvisited[neighbour]:
-                    unvisited[neighbour] = new_distance
-                    parent[neighbour] = min_node
+        if vertex == end:
+            return path_len
 
-        visited[min_node] = unvisited[min_node]
-        unvisited.pop(min_node)
-    # print(visited)
-    return visited[end]
+        if unvisited[vertex] == float("inf"):
+            unvisited[vertex] = path_len
+            for neighbour, cost in edges[vertex].items():
+                if unvisited[neighbour] == float("inf"):
+                    heappush(queue, (path_len + cost, neighbour))
 
 
 def part_one(filename: str):
