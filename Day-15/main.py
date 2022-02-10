@@ -60,14 +60,14 @@ def part_two(filename: str):
     for _ in range(4):
         column_ext = [[i % 9 + 1 for i in row] for row in column_ext]
         for i, _ in enumerate(data):
-            data[i] = data[i] + column_ext[i]
+            data[i] += column_ext[i]
 
     # extend rows
     extended_rows = []
     row_ext = data
     for _ in range(4):
         row_ext = [[i % 9 + 1 for i in row] for row in row_ext]
-        extended_rows = extended_rows + row_ext
+        extended_rows += row_ext
 
     data = data + extended_rows
     vertices, edges = generate_edges(data)
